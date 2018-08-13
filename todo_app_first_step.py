@@ -8,26 +8,58 @@ app.config['MONGO_URI'] = 'mongodb://maryam:maryam22@ds115592.mlab.com:15592/tod
 
 mongo = PyMongo(app)
 
+'''
+Inserting task into the db
+'''
 
 @app.route("/")
 def index():
     return render_template('todo_app_desing.html')
 
-
-
-
-@app.route('/',methods = ['POST'])
+@app.route('/', methods = ['POST'])
 def func():
     task = mongo.db.task
     text = {'task' : request.form['task']}
     add = task.insert(text )
     return "Sucessfully added"
+    return redirect(url_for('/view'))
 
 
-# @app.route('/add')
-# def add(text):
-#
-#     return ('suceesfully added')
+'''
+displaying task from db onto the form
+'''
+
+@app.route('/view')
+def view():
+     task_todo = mongo.db.task
+     list_of_task = task_todo.find()
+     return render_template('list.html'  , list_of_task = list_of_task )
+
+
+
+
+'''
+deleting task from the db
+'''
+
+
+# @app.route('/delete')
+# def delete():
+#     # return render_template('delete.html')
+#     task = mongo.db.task
+#     del_text = {'task': request.args.get('task')}
+#     find_item = task.find(del_text)
+#     if find_item == True:
+#         task.remove(del_text)
+#         return ('task deleted')
+#     else:
+#         return "sorry! no item found"
+#     return render_template('delete.html')
+# @app.route('/delete')
+# def deleting_task():
+
+    #return render_template('delete.html')
+
 
 
 app.run(debug = True)

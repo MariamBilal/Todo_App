@@ -1,0 +1,26 @@
+<!DOCTYPE html>.
+<html>
+
+<head>
+
+<h1>  TODO APP TASK LIST </h1>
+
+</head>
+
+<body>
+
+<form action = "{{url_for('view')}}"  method = "POST">
+<h1>   </h1>
+{%for task in list_of_task %}
+<tr> 
+	<li> <input type = "checkbox"   value= 'delete' <td> {{  list_of_task ['task']}} </td> </li>
+</tr>
+{%endfor%}
+
+</form>
+
+
+
+</body>
+
+</html>

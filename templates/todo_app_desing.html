@@ -8,14 +8,17 @@
 
 <body>
 
-<form action = '/' method = 'POST'>
+<form action = '/'  method = 'POST'>
 
 <input type = 'text'  name = 'task' placeholder = 'todo_task'>
-<input type = 'submit' value = 'Enter'>
+<input type = 'submit' value = 'ADD TASK' onclick = {url_for ('/')}>
+<input type = 'submit'  value = 'DELETE TASK'  onclick = "location.href = 'delete.html'" >
+ 
 
 </form>
+
+
 
 </body>
 
 </html>
-
