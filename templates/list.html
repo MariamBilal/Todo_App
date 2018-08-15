@@ -9,13 +9,17 @@
 
 <body>
 
-<form action = "{{url_for('view')}}"  method = "POST">
-<h1>   </h1>
-{%for task in list_of_task %}
+<form action = "{{url_for('view')}}"  method = "GET">
+<h4> List: </h4>
+
+{% for item in list_of_task %}
 <tr> 
-	<li> <input type = "checkbox"   value= 'delete' <td> {{  list_of_task ['task']}} </td> </li>
+	<li> <input type = "checkbox"  value = "delete" 
+			<td> {{ item }} </td> 
+	</li>
 </tr>
-{%endfor%}
+
+{% endfor %}
 
 </form>
 

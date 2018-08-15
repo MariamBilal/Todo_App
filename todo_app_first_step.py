@@ -21,19 +21,23 @@ def func():
     task = mongo.db.task
     text = {'task' : request.form['task']}
     add = task.insert(text )
-    return "Sucessfully added"
-    return redirect(url_for('/view'))
+    #return "Sucessfully added"
+    return redirect(url_for('view'))
 
 
 '''
 displaying task from db onto the form
 '''
 
-@app.route('/view')
+@app.route('/view' , methods = ['GET'])
 def view():
+     list_of_task=[]
      task_todo = mongo.db.task
-     list_of_task = task_todo.find()
+     result = task_todo.find()
+     for i in result:
+         list_of_task.append(i['task'])
      return render_template('list.html'  , list_of_task = list_of_task )
+
 
 
 
