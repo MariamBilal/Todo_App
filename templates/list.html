@@ -5,26 +5,55 @@
 
 <h1>  TODO APP TASK LIST </h1>
 
+
+
+<script>
+function myFunction() {
+    var checkBox = document.getElementById(item['ObjectId']);
+    if (checkBox.checked == true)
+	{
+        return "okay"
+    } else 
+	{
+       return "not okay";
+    }
+}
+</script>
+
+
 </head>
+
+
 
 <body>
 
-<form action = "{{url_for('view')}}"  method = "GET">
-<h4> List: </h4>
 
-{% for item in list_of_task %}
-<tr> 
-	<li> <input type = "checkbox"  value = "delete" 
-			<td> {{ item }} </td> 
-	</li>
-</tr>
+
+<form action = "{{url_for('view')}}"  method = "GET">
+<h3> List: </h3>
+
+<table style = "width:75%" >
+ <tr> 
+	<th>  ID  </th>
+	<th> Title   </th>
+	<th> Description   </th>
+	<th> Delete </th>
+	
+ </tr>
+
+ {% for item in list_of_task %}
+   <tr> 
+		<td> 	{{ item }} </td>
+		<td>    {{ item['title']}} </td>
+		<td> 	{{ item['task'] }} </td>
+		<td>  <a href = "{{url_for('deletetask' , id = item._id)}}"> Deleted </a> </td>
+	</tr>
 
 {% endfor %}
 
+</table>
+
 </form>
-
-
-
 </body>
 
 </html>

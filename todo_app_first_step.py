@@ -1,5 +1,6 @@
 from flask import Flask , render_template,request,jsonify,redirect, url_for
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -19,10 +20,12 @@ def index():
 @app.route('/', methods = ['POST'])
 def func():
     task = mongo.db.task
-    text = {'task' : request.form['task']}
+    text = [{'task' : request.form['task'] ,
+             'title' : request.form['title']}]
     add = task.insert(text )
     #return "Sucessfully added"
     return redirect(url_for('view'))
+
 
 
 '''
@@ -35,35 +38,18 @@ def view():
      task_todo = mongo.db.task
      result = task_todo.find()
      for i in result:
-         list_of_task.append(i['task'])
+         list_of_task.append(i)
+
      return render_template('list.html'  , list_of_task = list_of_task )
 
 
+@app.route('/deletetask/<id>')
 
-
-
-'''
-deleting task from the db
-'''
-
-
-# @app.route('/delete')
-# def delete():
-#     # return render_template('delete.html')
-#     task = mongo.db.task
-#     del_text = {'task': request.args.get('task')}
-#     find_item = task.find(del_text)
-#     if find_item == True:
-#         task.remove(del_text)
-#         return ('task deleted')
-#     else:
-#         return "sorry! no item found"
-#     return render_template('delete.html')
-# @app.route('/delete')
-# def deleting_task():
-
-    #return render_template('delete.html')
-
+def deletetask(id):
+     db = mongo.db.task
+     delete = db.find_one({"_id" : ObjectId(id)})
+     deleted = db.remove(delete)
+     return redirect(url_for('view'))
 
 
 app.run(debug = True)
